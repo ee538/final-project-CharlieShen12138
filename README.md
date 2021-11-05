@@ -72,7 +72,7 @@ Next, type the following, but make sure that you set the **path_to_install_folde
 $ cd opencv/
 $ mkdir build install
 $ cd build
-$ cmake -D CMAKE_INSTALL_PREFIX=/Users/charlieshen/final-project-CharlieShen12138\
+$ cmake -D CMAKE_INSTALL_PREFIX=/Users/charlieshen/final-project-CharlieShen12138/opencv\
  -D BUILD_LIST=core,highgui,imgcodecs,imgproc,videoio\
  -D WITH_TBB=ON -D WITH_OPENMP=ON -D WITH_IPP=ON\
  -D CMAKE_BUILD_TYPE=RELEASE -D BUILD_EXAMPLES=OFF\
@@ -92,7 +92,7 @@ For example, if cloned this repo under "/Users/ari/github/TrojanMap", you should
 $ cd opencv/
 $ mkdir build install
 $ cd build
-$ cmake -D CMAKE_INSTALL_PREFIX=/Users/ari/github/TrojanMap/opencv/install\
+$ cmake -D CMAKE_INSTALL_PREFIX=/Users/charlieshen/opencv/build\
  -D BUILD_LIST=core,highgui,imgcodecs,imgproc,videoio\
  -D WITH_TBB=ON -D WITH_OPENMP=ON -D WITH_IPP=ON\
  -D CMAKE_BUILD_TYPE=RELEASE -D BUILD_EXAMPLES=OFF\
