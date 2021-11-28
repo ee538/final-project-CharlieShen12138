@@ -81,7 +81,17 @@
     "hash_set": "cpp",
     "future": "cpp",
     "forward_list": "cpp",
-    "queue": "cpp"
+    "queue": "cpp",
+    "cfenv": "cpp",
+    "clocale": "cpp",
+    "compare": "cpp",
+    "concepts": "cpp",
+    "numbers": "cpp",
+    "semaphore": "cpp",
+    "typeindex": "cpp",
+    "*.tcc": "cpp",
+    "memory_resource": "cpp",
+    "stop_token": "cpp"
   },
   "lldb.displayFormat": "auto",
   "lldb.dereferencePointers": true,

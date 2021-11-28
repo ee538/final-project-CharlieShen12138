@@ -824,15 +824,14 @@ std::pair<double, std::vector<std::vector<std::string>>> TrojanMap::TravellingTr
   std::pair<double, std::vector<std::vector<std::string>>> results;
   std::vector<std::string> currentsol = location_ids;      // current soltion
   currentsol.push_back(location_ids[0]);       //make a loop
-  results.second.push_back(currentsol);
   int n = currentsol.size();        //loop length
   int app = 0;                   //teamping times
   while(app<15){
     next_loop: double currentdis = CalculatePathLength(currentsol);    //calculate current length 
-     for(int i=1; i<n-3; i++){           //first point
-       for(int j=i+1; j<n-2; j++){            //second point
+     for(int i=1; i<n-2; i++){           //first point
+       for(int j=i+1; j<n-1; j++){            //second point
        std::vector<std::string> current_method = currentsol;         //make a copy
-       std::swap(current_method[i],current_method[j]);      //2-opt algorithm
+       std::reverse(current_method.begin()+i,current_method.begin()+j);      //2-opt algorithm
        auto newdist = CalculatePathLength(current_method);               //calculate new distance
        if(newdist<currentdis){
          app = 0;        //there an improvement in this attempt
@@ -881,46 +880,10 @@ std::vector<std::vector<std::string>> TrojanMap::ReadDependenciesFromCSVFile(std
  * @param  {std::vector<std::vector<std::string>>} dependencies     : prerequisites
  * @return {std::vector<std::string>} results                       : results
  */
-
-/*void TrojanMap::bruteforce(std::vector<std::string> &location_ids,std::vector<std::string> &vertex,double &min_path, std::vector<std::vector<std::string>> &paths){
-     double curr_cost = 0;
-    std::string k = location_ids[0];
-   std::vector<std::string> currpath;
-    for(auto temp: vertex)
-    {
-        curr_cost += CalculateDistance(data[k].id,data[temp].id);
-         k = temp;
-    } 
-    curr_cost += CalculateDistance(data[k].id,data[location_ids[0]].id);
-    if(min_path>curr_cost)
-    {
-      min_path=curr_cost;
-      currpath.clear();
-      currpath.push_back(location_ids[0]);
-      for(auto x: vertex)
-      currpath.push_back(x);
-      currpath.push_back(location_ids[0]);
-      paths.push_back(currpath);
-    }
-  }*/
-
 std::vector<std::string> TrojanMap::DeliveringTrojan(std::vector<std::string> &locations,
                                                      std::vector<std::vector<std::string>> &dependencies){
-  /*std::pair<double, std::vector<std::vector<std::string>>> results;
-  std::sort(location_ids.begin(), location_ids.end());
-  std::vector<std::string> vertex = location_ids;   
-  vertex.erase(vertex.begin());
-  std::vector<std::vector<std::string>> paths;
-  std::vector<std::string> mpath;
-  double min_path = DBL_MAX;
-   do
-  {
-   
-  bruteforce(location_ids,vertex,min_path, paths);
-  }while(next_permutation(vertex.begin(),vertex.end()));
-  results.first = min_path;
-  results.second = paths;
-  return results; */                                                 
+  std::vector<std::string> result;
+  return result;                                                     
 }
 
 /**

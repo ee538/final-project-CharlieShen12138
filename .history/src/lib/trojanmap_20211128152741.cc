@@ -902,11 +902,11 @@ std::vector<std::vector<std::string>> TrojanMap::ReadDependenciesFromCSVFile(std
       currpath.push_back(location_ids[0]);
       paths.push_back(currpath);
     }
-  }*/
+  }
 
 std::vector<std::string> TrojanMap::DeliveringTrojan(std::vector<std::string> &locations,
                                                      std::vector<std::vector<std::string>> &dependencies){
-  /*std::pair<double, std::vector<std::vector<std::string>>> results;
+  std::pair<double, std::vector<std::vector<std::string>>> results;
   std::sort(location_ids.begin(), location_ids.end());
   std::vector<std::string> vertex = location_ids;   
   vertex.erase(vertex.begin());
@@ -920,8 +920,8 @@ std::vector<std::string> TrojanMap::DeliveringTrojan(std::vector<std::string> &l
   }while(next_permutation(vertex.begin(),vertex.end()));
   results.first = min_path;
   results.second = paths;
-  return results; */                                                 
-}
+  return results;                                                  
+}*/
 
 /**
  * Cycle Detection: Given four points of the square-shape subgraph, return true if there

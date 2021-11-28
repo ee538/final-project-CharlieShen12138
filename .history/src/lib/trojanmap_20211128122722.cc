@@ -881,46 +881,10 @@ std::vector<std::vector<std::string>> TrojanMap::ReadDependenciesFromCSVFile(std
  * @param  {std::vector<std::vector<std::string>>} dependencies     : prerequisites
  * @return {std::vector<std::string>} results                       : results
  */
-
-/*void TrojanMap::bruteforce(std::vector<std::string> &location_ids,std::vector<std::string> &vertex,double &min_path, std::vector<std::vector<std::string>> &paths){
-     double curr_cost = 0;
-    std::string k = location_ids[0];
-   std::vector<std::string> currpath;
-    for(auto temp: vertex)
-    {
-        curr_cost += CalculateDistance(data[k].id,data[temp].id);
-         k = temp;
-    } 
-    curr_cost += CalculateDistance(data[k].id,data[location_ids[0]].id);
-    if(min_path>curr_cost)
-    {
-      min_path=curr_cost;
-      currpath.clear();
-      currpath.push_back(location_ids[0]);
-      for(auto x: vertex)
-      currpath.push_back(x);
-      currpath.push_back(location_ids[0]);
-      paths.push_back(currpath);
-    }
-  }*/
-
 std::vector<std::string> TrojanMap::DeliveringTrojan(std::vector<std::string> &locations,
                                                      std::vector<std::vector<std::string>> &dependencies){
-  /*std::pair<double, std::vector<std::vector<std::string>>> results;
-  std::sort(location_ids.begin(), location_ids.end());
-  std::vector<std::string> vertex = location_ids;   
-  vertex.erase(vertex.begin());
-  std::vector<std::vector<std::string>> paths;
-  std::vector<std::string> mpath;
-  double min_path = DBL_MAX;
-   do
-  {
-   
-  bruteforce(location_ids,vertex,min_path, paths);
-  }while(next_permutation(vertex.begin(),vertex.end()));
-  results.first = min_path;
-  results.second = paths;
-  return results; */                                                 
+  std::vector<std::string> result;
+  return result;                                                     
 }
 
 /**

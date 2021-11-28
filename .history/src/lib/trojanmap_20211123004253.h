@@ -140,8 +140,6 @@ class TrojanMap {
   void shortestpath(std::map<std::string, std::string> previouspoint,std::string dest, std::vector<std::string> &path);
 
   void cyclehelper(std::unordered_map<std::string, Node>& data,std::string currentID,std::unordered_map<std::string, int>& visited_points,std::unordered_map<std::string, std::string>& prev_points,std::vector<std::string>& cycle);
-
-  /*void bruteforce(std::vector<std::string> &location_ids,std::vector<std::string> &vertex,double &min_path, std::vector<std::vector<std::string>> &paths);*/
 };
 
 #endif

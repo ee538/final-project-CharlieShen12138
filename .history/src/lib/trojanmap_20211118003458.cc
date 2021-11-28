@@ -737,7 +737,7 @@ std::string TrojanMap::GetID(std::string name) {
  * @return {std::vector<std::string>}       : path
  */
 
-std::string TrojanMap::fminNv(std::map<std::string, double> distance, std::map<std::string, int> visitedpoint){
+std::string fminNv(std::map<std::string, double> distance, std::map<std::string, int> visitedpoint){
   int min = INT32_MAX;           //min distance
   std::string nextmin;           //next point
   for(auto temp:distance){       //irterate all points
@@ -749,12 +749,12 @@ std::string TrojanMap::fminNv(std::map<std::string, double> distance, std::map<s
   return nextmin;         //return this point
 }
 
-void TrojanMap::shortestpath(std::map<std::string, std::string> previouspoint,std::string dest, std::vector<std::string> &path){
-  if(previouspoint.at(dest)=="none"){                // has reatch the destination
+void shortestpath(std::map<std::string, std::string> previouspoint,std::string dest, std::vector<std::string> &path){
+  if(previouspoint.at(dest)=="none"){
     return;
   }
-  shortestpath(previouspoint,previouspoint.at(dest),path);      //backtrack to previous points untill hit the begining
-  path.push_back(dest);                      //push results into path vector
+  shortestpath(previouspoint,previouspoint.at(dest),path);
+  path.push_back(dest);
 }
 
 std::vector<std::string> TrojanMap::CalculateShortestPath_Dijkstra(
@@ -778,17 +778,17 @@ std::vector<std::string> TrojanMap::CalculateShortestPath_Dijkstra(
     for(int i = 0; i<distance.size()-1; i++){                     //iterate all points
       std::string nextp = fminNv(distance,visitedpoint);          //chose the next point be the cloest neighbor of curent point
       visitedpoint[nextp] = 1;                                    //mark it as visited
-      for(auto it:distance){                                    //update distances when using a new point
+      for(auto it:distance){                                      
         std::vector<std::string> neighbors;                       
-        neighbors = GetNeighborIDs(nextp);                        //get neighbors of this point
+        neighbors = GetNeighborIDs(nextp);
         if(visitedpoint[it.first]==0&&std::find(neighbors.begin(), neighbors.end(), it.first) !=neighbors.end()&&distance[nextp]+CalculateDistance(data[nextp].id,data[it.first].id)<distance[it.first]){
-          previouspoint[it.first] = nextp;            //if this point is unvisited & 'it' is the neighbor of nextp & distance to get to 'it' (using nextp) is smallest
-          distance[it.first] = distance[nextp]+CalculateDistance(data[nextp].id,data[it.first].id);  //update the clost distance
+          previouspoint[it.first] = nextp;
+          distance[it.first] = distance[nextp]+CalculateDistance(data[nextp].id,data[it.first].id);
         }
       }
     }
-    path.push_back(sourse);              //starting point
-    shortestpath(previouspoint,end,path);             //create path vector
+    path.push_back(sourse);
+    shortestpath(previouspoint,end,path);
     return path;
 }
 
@@ -819,33 +819,9 @@ std::pair<double, std::vector<std::vector<std::string>>> TrojanMap::TravellingTr
   return results;
 }
 
-std::pair<double, std::vector<std::vector<std::string>>> TrojanMap::TravellingTrojan_2opt(
+std::pair<double, std::vector<std::vector<std::string>>> TravellingTrojan_2opt(
       std::vector<std::string> &location_ids){
   std::pair<double, std::vector<std::vector<std::string>>> results;
-  std::vector<std::string> currentsol = location_ids;      // current soltion
-  currentsol.push_back(location_ids[0]);       //make a loop
-  results.second.push_back(currentsol);
-  int n = currentsol.size();        //loop length
-  int app = 0;                   //teamping times
-  while(app<15){
-    next_loop: double currentdis = CalculatePathLength(currentsol);    //calculate current length 
-     for(int i=1; i<n-3; i++){           //first point
-       for(int j=i+1; j<n-2; j++){            //second point
-       std::vector<std::string> current_method = currentsol;         //make a copy
-       std::swap(current_method[i],current_method[j]);      //2-opt algorithm
-       auto newdist = CalculatePathLength(current_method);               //calculate new distance
-       if(newdist<currentdis){
-         app = 0;        //there an improvement in this attempt
-         currentsol.clear();
-         currentsol = current_method;      //current method is a better method
-         currentdis = newdist;       //a better distance
-         results.second.push_back(current_method);   //push current method to results vector
-         goto next_loop;      //try to find if there could be a better solution
-       }
-       }
-     }  app++;             //we have achieved best soltion in this loop
-  }
-  results.first = CalculatePathLength(currentsol);
   return results;
 }
 
@@ -881,46 +857,10 @@ std::vector<std::vector<std::string>> TrojanMap::ReadDependenciesFromCSVFile(std
  * @param  {std::vector<std::vector<std::string>>} dependencies     : prerequisites
  * @return {std::vector<std::string>} results                       : results
  */
-
-/*void TrojanMap::bruteforce(std::vector<std::string> &location_ids,std::vector<std::string> &vertex,double &min_path, std::vector<std::vector<std::string>> &paths){
-     double curr_cost = 0;
-    std::string k = location_ids[0];
-   std::vector<std::string> currpath;
-    for(auto temp: vertex)
-    {
-        curr_cost += CalculateDistance(data[k].id,data[temp].id);
-         k = temp;
-    } 
-    curr_cost += CalculateDistance(data[k].id,data[location_ids[0]].id);
-    if(min_path>curr_cost)
-    {
-      min_path=curr_cost;
-      currpath.clear();
-      currpath.push_back(location_ids[0]);
-      for(auto x: vertex)
-      currpath.push_back(x);
-      currpath.push_back(location_ids[0]);
-      paths.push_back(currpath);
-    }
-  }*/
-
 std::vector<std::string> TrojanMap::DeliveringTrojan(std::vector<std::string> &locations,
                                                      std::vector<std::vector<std::string>> &dependencies){
-  /*std::pair<double, std::vector<std::vector<std::string>>> results;
-  std::sort(location_ids.begin(), location_ids.end());
-  std::vector<std::string> vertex = location_ids;   
-  vertex.erase(vertex.begin());
-  std::vector<std::vector<std::string>> paths;
-  std::vector<std::string> mpath;
-  double min_path = DBL_MAX;
-   do
-  {
-   
-  bruteforce(location_ids,vertex,min_path, paths);
-  }while(next_permutation(vertex.begin(),vertex.end()));
-  results.first = min_path;
-  results.second = paths;
-  return results; */                                                 
+  std::vector<std::string> result;
+  return result;                                                     
 }
 
 /**
@@ -930,59 +870,7 @@ std::vector<std::string> TrojanMap::DeliveringTrojan(std::vector<std::string> &l
  * @param {std::vector<double>} square: four vertexes of the square area
  * @return {bool}: whether there is a cycle or not
  */
-
-void TrojanMap::cyclehelper(std::unordered_map<std::string, Node>& data,std::string currentID,std::unordered_map<std::string, int>& visited_points,std::unordered_map<std::string, std::string>& prev_points,std::vector<std::string>& cycle){
-  visited_points[currentID] = 1;
-  for(auto next:data){
-    if(cycle.size()>0){
-      return;
-    }
-    if(visited_points.find(next.second.id) == visited_points.end()){         //this point is outside the squre
-      continue;
-    }
-    if(visited_points[currentID]==0){
-      prev_points[next.second.id] = currentID;       //prepare for next loop
-      cyclehelper(data, next.second.id, visited_points, prev_points, cycle);   //run next loop
-    }
-    else if(visited_points[next.second.id]==1 && next.second.id != prev_points[currentID]){       //it's not a line but a loop
-      std::string it = currentID;
-      while(it != next.second.id){                     //create the cycle path vector
-        cycle.push_back(it);
-        it = prev_points[it];
-      }
-      cycle.push_back(it);
-      return;
-    }
-  }
-  visited_points[currentID] = 2;    //this point is not in the loop
-}
-
-bool TrojanMap::CycleDetection(std::vector<double> &square) {     
-  std::unordered_map<std::string, int> visited_points;
-  std::unordered_map<std::string, std::string> prev_points;
-  std::vector<std::string> cycle;
-  if (square[0]>=square[1]||square[2]<=square[3]){     //0:left  1:right  2:top  3:buttom
-    return false;
-  }
-  std::vector<std::string> inside_points;
-  for(auto it:data){
-    if(it.second.lon>square[0] && it.second.lon<square[1] && it.second.lat>square[3] && it.second.lat<square[2]){    //points inside square
-      inside_points.push_back(it.second.id);        //push these points ID into the vector
-    }
-  }
-  for(auto it:inside_points){             //initiallization
-    visited_points[it] = 0;
-    prev_points[it] = "none";
-  }
-  for(auto cyc:inside_points){
-    if(visited_points[cyc] == 0){
-      cyclehelper(data, cyc, visited_points, prev_points, cycle);
-      if(cycle.size()>0){
-        PlotPointsandEdges(cycle, square);
-        return true;
-      }
-    }
-  }
+bool TrojanMap::CycleDetection(std::vector<double> &square) {                          //dis 11
   return false;
 }
 

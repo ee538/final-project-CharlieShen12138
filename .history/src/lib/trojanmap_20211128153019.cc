@@ -919,8 +919,8 @@ std::vector<std::string> TrojanMap::DeliveringTrojan(std::vector<std::string> &l
   bruteforce(location_ids,vertex,min_path, paths);
   }while(next_permutation(vertex.begin(),vertex.end()));
   results.first = min_path;
-  results.second = paths;
-  return results; */                                                 
+  results.second = paths;*/
+  return results;                                                  
 }
 
 /**

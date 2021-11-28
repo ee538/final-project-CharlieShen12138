@@ -906,8 +906,8 @@ std::vector<std::vector<std::string>> TrojanMap::ReadDependenciesFromCSVFile(std
 
 std::vector<std::string> TrojanMap::DeliveringTrojan(std::vector<std::string> &locations,
                                                      std::vector<std::vector<std::string>> &dependencies){
-  /*std::pair<double, std::vector<std::vector<std::string>>> results;
-  std::sort(location_ids.begin(), location_ids.end());
+  std::pair<double, std::vector<std::vector<std::string>>> results;
+  /*std::sort(location_ids.begin(), location_ids.end());
   std::vector<std::string> vertex = location_ids;   
   vertex.erase(vertex.begin());
   std::vector<std::vector<std::string>> paths;
@@ -919,8 +919,8 @@ std::vector<std::string> TrojanMap::DeliveringTrojan(std::vector<std::string> &l
   bruteforce(location_ids,vertex,min_path, paths);
   }while(next_permutation(vertex.begin(),vertex.end()));
   results.first = min_path;
-  results.second = paths;
-  return results; */                                                 
+  results.second = paths;*/
+  return results;                                                  
 }
 
 /**
