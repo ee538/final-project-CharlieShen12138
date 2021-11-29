@@ -886,17 +886,7 @@ std::pair<double, std::vector<std::vector<std::string>>> TrojanMap::TravellingTr
  */
 std::vector<std::string> TrojanMap::ReadLocationsFromCSVFile(std::string locations_filename){
   std::vector<std::string> location_names_from_csv;
-  std::fstream fin;
-  fin.open(locations_filename,std::ios::in);
-  std::string line;
-  getline(fin,line);
-  while(getline(fin,line)){
-    line.erase(std::remove(line.begin(),line.end(),','),line.end());
-    location_names_from_csv.push_back(line);
-  }
-  fin.close();
   return location_names_from_csv;
-
 }
 
 /**

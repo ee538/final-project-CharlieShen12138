@@ -886,17 +886,7 @@ std::pair<double, std::vector<std::vector<std::string>>> TrojanMap::TravellingTr
  */
 std::vector<std::string> TrojanMap::ReadLocationsFromCSVFile(std::string locations_filename){
   std::vector<std::string> location_names_from_csv;
-  std::fstream fin;
-  fin.open(locations_filename,std::ios::in);
-  std::string line;
-  getline(fin,line);
-  while(getline(fin,line)){
-    line.erase(std::remove(line.begin(),line.end(),','),line.end());
-    location_names_from_csv.push_back(line);
-  }
-  fin.close();
   return location_names_from_csv;
-
 }
 
 /**
@@ -908,20 +898,6 @@ std::vector<std::string> TrojanMap::ReadLocationsFromCSVFile(std::string locatio
  */
 std::vector<std::vector<std::string>> TrojanMap::ReadDependenciesFromCSVFile(std::string dependencies_filename){
   std::vector<std::vector<std::string>> dependencies_from_csv;
-   std::vector<std::vector<std::string>> dependencies_from_csv;
-  std::fstream fin;
-  fin.open(dependencies_filename,std::ios::in);
-  std::string line,word;
-  getline(fin,line);
-  while(getline(fin,line)){
-    std::stringstream s(line);
-    std::vector<std::string> temp;
-    while(getline(s,word,',')){
-      temp.push_back(word);
-    }
-    dependencies_from_csv.push_back(temp);
-  }
-  fin.close();
   return dependencies_from_csv;
 }
 
