@@ -908,6 +908,7 @@ std::vector<std::string> TrojanMap::ReadLocationsFromCSVFile(std::string locatio
  */
 std::vector<std::vector<std::string>> TrojanMap::ReadDependenciesFromCSVFile(std::string dependencies_filename){
   std::vector<std::vector<std::string>> dependencies_from_csv;
+   std::vector<std::vector<std::string>> dependencies_from_csv;
   std::fstream fin;
   fin.open(dependencies_filename,std::ios::in);
   std::string line,word;
