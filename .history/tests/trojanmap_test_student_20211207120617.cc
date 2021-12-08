@@ -155,25 +155,7 @@ TEST(TrojanMapTest, CycleDetection) {
   EXPECT_EQ(result1, true);
 
   // Test case 2
-  std::vector<double> square2 = {-118.290919, -118.282911, 34.02235, 34.019674};
+  std::vector<double> square2 = {-118.290919, -118.282911, 34.02235, 34.019675};
   bool result2 = m.CycleDetection(square2);
   EXPECT_EQ(result2, false);
-}
-TEST(TrojanMapTest, TopologicalSort) {
-  TrojanMap m;
-  m.CreateGraphFromCSVFile();
-  std::vector<std::string> location_names = {"Rance39s Chicago Pizza","Ramen KenJo","Ralphs"};
-  std::vector<std::vector<std::string>> dependencies = {{"Rance39s Chicago Pizza","Ramen KenJo",}, {"Ramen KenJo","Ralphs"}, {"Rance39s Chicago Pizza","Ralphs"}};
-  auto result = m.DeliveringTrojan(location_names, dependencies);
-  std::vector<std::string> gt ={"Rance39s Chicago Pizza","Ramen KenJo","Ralphs"};
-  EXPECT_EQ(result, gt);
-}
-
-TEST(TrojanMapTest, FindKClosestPoints) {
-  TrojanMap m;
-  m.CreateGraphFromCSVFile();
-  auto result = m.FindKClosestPoints("Ralphs",10);
-  std::vector<std::string> gt{
- "5172201326","4291108051","7159714208","7360424710","6094068597"};
-  EXPECT_EQ(result, gt);
 }

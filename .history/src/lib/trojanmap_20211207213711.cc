@@ -867,21 +867,7 @@ void TrojanMap::bruteforce(std::vector<std::string> &location_ids,std::vector<st
 std::pair<double, std::vector<std::vector<std::string>>> TrojanMap::TravellingTrojan(
                                     std::vector<std::string> &location_ids) {
   std::pair<double, std::vector<std::vector<std::string>>> results;
-  std::sort(location_ids.begin(), location_ids.end());
-  std::vector<std::string> vertex = location_ids;   
-  vertex.erase(vertex.begin());
-  std::vector<std::vector<std::string>> paths;
-  std::vector<std::string> mpath;
-  double min_path = DBL_MAX;
-   do
-  {
-   
-  bruteforce(location_ids,vertex,min_path, paths);
-  }while(next_permutation(vertex.begin(),vertex.end()));
-  results.first = min_path;
-  results.second = paths;
   return results;
-
 }
 
 std::pair<double, std::vector<std::vector<std::string>>> TrojanMap::TravellingTrojan_2opt(
@@ -969,52 +955,46 @@ std::vector<std::vector<std::string>> TrojanMap::ReadDependenciesFromCSVFile(std
  * @param  {std::vector<std::vector<std::string>>} dependencies     : prerequisites
  * @return {std::vector<std::string>} results                       : results
  */
-void TrojanMap::topologicalSortUtil(std::string root,std::map<std::string,bool> &visited,std::vector<std::string> &top_list, std::map<std::string,std::vector<std::string>> &edge_map){
-    visited[root]=true;
-   std::vector<std::string> temp=edge_map[root];
-   for(const std::string &q : temp)
-   {
-       if(visited[q]!=true)
-         topologicalSortUtil(q,visited,top_list,edge_map);
-   }
-   top_list.push_back(root);
- }
 
+/*void TrojanMap::bruteforce(std::vector<std::string> &location_ids,std::vector<std::string> &vertex,double &min_path, std::vector<std::vector<std::string>> &paths){
+     double curr_cost = 0;
+    std::string k = location_ids[0];
+   std::vector<std::string> currpath;
+    for(auto temp: vertex)
+    {
+        curr_cost += CalculateDistance(data[k].id,data[temp].id);
+         k = temp;
+    } 
+    curr_cost += CalculateDistance(data[k].id,data[location_ids[0]].id);
+    if(min_path>curr_cost)
+    {
+      min_path=curr_cost;
+      currpath.clear();
+      currpath.push_back(location_ids[0]);
+      for(auto x: vertex)
+      currpath.push_back(x);
+      currpath.push_back(location_ids[0]);
+      paths.push_back(currpath);
+    }
+  }*/
 
 std::vector<std::string> TrojanMap::DeliveringTrojan(std::vector<std::string> &locations,
                                                      std::vector<std::vector<std::string>> &dependencies){
-  std::vector<std::string> result;
-  std::vector<std::string> root;
-  std::map<std::string,std::vector<std::string>> edge_map;
-   bool v=true;
-   for(auto location:locations)
-   {
-     for(auto x:dependencies)
-     {
-      if(location==x[0])
-        edge_map[location].push_back(x[1]);
-      if(location==x[1])
-        v=false;
-     }
-     if(v==true)
-       root.push_back(location);
-     v=true;
-   }
-
-   if(root.size()!=1)
-     return {};   
-  
-   std::string start_p=root[0];
-   std::map<std::string,bool> visited;
-   topologicalSortUtil(start_p,visited,result,edge_map);
-   std::reverse(result.begin(),result.end());
-   if(result.size()==locations.size())
-     return result;
-   else{
-     return {};
-   }
-   return result;
-                        
+  /*std::pair<double, std::vector<std::vector<std::string>>> results;
+  std::sort(location_ids.begin(), location_ids.end());
+  std::vector<std::string> vertex = location_ids;   
+  vertex.erase(vertex.begin());
+  std::vector<std::vector<std::string>> paths;
+  std::vector<std::string> mpath;
+  double min_path = DBL_MAX;
+   do
+  {
+   
+  bruteforce(location_ids,vertex,min_path, paths);
+  }while(next_permutation(vertex.begin(),vertex.end()));
+  results.first = min_path;
+  results.second = paths;
+  return results; */                                                 
 }
 
 /**
@@ -1089,20 +1069,5 @@ bool TrojanMap::CycleDetection(std::vector<double> &square) {
  */
 std::vector<std::string> TrojanMap::FindKClosestPoints(std::string name, int k) {
   std::vector<std::string> res;
-  std::vector<std::string> r;
-  std::map<double,std::string> dis;
-  for(auto a:data){
-    double distance=CalculateDistance(a.second.id,data[name].id);
-    if(a.second.name.length()!=0){
-    dis[distance]=a.first;
-    }
-  }
-
-  for(auto a:dis){
-      res.push_back(a.second);
-  }
-  res.resize(k+1);
-  res.erase(res.begin());
   return res;
-
 }

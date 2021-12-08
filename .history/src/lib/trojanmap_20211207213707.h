@@ -142,8 +142,6 @@ class TrojanMap {
   void cyclehelper(std::unordered_map<std::string, Node>& data,std::string currentID,std::unordered_map<std::string, int>& visited_points,std::unordered_map<std::string, std::string>& prev_points,std::vector<std::string>& cycle);
 
   void bruteforce(std::vector<std::string> &location_ids,std::vector<std::string> &vertex,double &min_path, std::vector<std::vector<std::string>> &paths);
-
-  void topologicalSortUtil(std::string root,std::map<std::string,bool> &visited,std::vector<std::string> &top_list, std::map<std::string,std::vector<std::string>> &edge_map);
 };
 
 #endif
